@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./fonts/fonts.css" />
+    <link rel="stylesheet" href="./styles/globals.css" />
+    <link rel="stylesheet" href="./styles/variables.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/litepicker.css" />
+    <title>Таблица запросов</title>
+  </head>
+  <body class="page">
+    <main>
+      <section class="content">
+        <div class="table-tools">
+          <div class="table-tools__wrapper">
+            <input
+              class="input search-input"
+              type="text"
+              name="search"
+              placeholder="Начните вводить слово"
+            />
+            <input
+              class="input datepicker-input"
+              name="datepicker"
+              id="litepicker"
+            />
+            <div class="table-tools__dropdown-wrapper">
+              <button class="button button-export" type="button"></button>
+              <ul class="export-list">
+                <li class="export-list__item">
+                  <button
+                    type="button"
+                    class="button export-list__button export-list__button_xlsx"
+                  >
+                    Xlsx
+                  </button>
+                </li>
+                <li class="export-list__item">
+                  <button
+                    type="button"
+                    class="button export-list__button export-list__button_csv"
+                  >
+                    Csv
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <button type="button" class="button button-reset-filter">Сбросить сортировку</и>
+          </div>
+          <div class="table-tools__dropdown-wrapper">
+            <button class="button button-settings" type="button">
+              Настройки
+            </button>
+            <div class="settings-dropdown">
+              <form action="" class="settings-form">
+                <label class="settings-form__label">
+                  <input
+                    class="checkbox settings-form__checkbox visually-hidden"
+                    type="checkbox"
+                    name="hide-days"
+                    id="hide-days"
+                    value="Скрыть дни без данных"
+                  />
+                  <span class="settings-form__pseudo-checkbox"></span>
+                  <span class="settings-form__label-text"
+                    >Скрыть дни без данных</span
+                  >
+                </label>
+                <label class="settings-form__label">
+                  <input
+                    class="checkbox settings-form__checkbox settings-form__checkbox_toggle visually-hidden"
+                    type="checkbox"
+                    name="shortcut-type"
+                    id="shortcut-type"
+                    value="Сокращенный вид"
+                  />
+                  <span class="settings-form__pseudo-radio"></span>
+                  <span class="settings-form__label-text"
+                    >Сокращенный вид
+                  </span></label
+                >
+                <label class="settings-form__label">
+                  <input
+                    type="checkbox"
+                    name="count-sum"
+                    id="count-sum"
+                    class="checkbox settings-form__checkbox settings-form__checkbox_toggle visually-hidden"
+                    value="Вычислить суммы"
+                  />
+                  <span class="settings-form__pseudo-radio"></span>
+                  <span class="settings-form__label-text"
+                    >Вычислить суммы
+                  </span></label
+                >
+                <label
+                  class="settings-form__label settings-form__label_show-plot"
+                >
+                  <input
+                    class="checkbox settings-form__checkbox visually-hidden"
+                    type="checkbox"
+                    name="show-plot"
+                    id="show-plot"
+                    value="Показать график"
+                  />
+                  <span class="settings-form__pseudo-checkbox"></span>
+                  <span class="settings-form__label-text"
+                    >Показать график
+                  </span>
+                </label>
+                <button class="button button-submit" type="submit">
+                  Применить
+                </button>
+                <div class="settings-form__clear-data">
+                  Очистить<br />
+                  данные за
+                  <input
+                    class="input input-number"
+                    type="number"
+                    name="clear-data"
+                    placeholder="0"
+                  />
+                  дней
+                </div>
+                <button class="button button-delete" type="button">
+                  Удалить
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <table class="table">
+          <thead class="table__head">
+            <tr class="table__row">
+              <th class="table__heading">
+                <label class="settings-form__label table__label">
+                  <input
+                    class="checkbox settings-form__checkbox visually-hidden"
+                    type="checkbox"
+                    name="table-item"
+                  />
+                  <span class="settings-form__pseudo-checkbox"></span>
+                  <span class="settings-form__label-text"
+                    >Ключевые слова
+                    <svg
+                      class="svg svg_arrow"
+                      width="6"
+                      height="4"
+                      viewBox="0 0 6 4"
+                      fill="none"
+                    >
+                      <path
+                        d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                        fill="#404040"
+                      />
+                    </svg>
+                  </span>
+                </label>
+              </th>
+              <th class="table__heading">
+                Позиция
+                <svg
+                  class="svg svg_arrow"
+                  width="6"
+                  height="4"
+                  viewBox="0 0 6 4"
+                  fill="none"
+                >
+                  <path
+                    d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                    fill="#404040"
+                  />
+                </svg>
+              </th>
+              <th class="table__heading">
+                Клики
+                <svg
+                  class="svg svg_arrow"
+                  width="6"
+                  height="4"
+                  viewBox="0 0 6 4"
+                  fill="none"
+                >
+                  <path
+                    d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                    fill="#404040"
+                  />
+                </svg>
+              </th>
+              <th class="table__heading">
+                CTR
+                <svg
+                  class="svg svg_arrow"
+                  width="6"
+                  height="4"
+                  viewBox="0 0 6 4"
+                  fill="none"
+                >
+                  <path
+                    d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                    fill="#404040"
+                  />
+                </svg>
+              </th>
+              <th class="table__heading">
+                Показы
+                <svg
+                  class="svg svg_arrow"
+                  width="6"
+                  height="4"
+                  viewBox="0 0 6 4"
+                  fill="none"
+                >
+                  <path
+                    d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                    fill="#404040"
+                  />
+                </svg>
+              </th>
+              <th class="table__heading">
+                Спрос
+                <svg
+                  class="svg svg_arrow"
+                  width="6"
+                  height="4"
+                  viewBox="0 0 6 4"
+                  fill="none"
+                >
+                  <path
+                    d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                    fill="#404040"
+                  />
+                </svg>
+              </th>
+              <th
+                class="table__heading table__heading_data table__heading_has-filter"
+              >
+                <svg
+                  class="svg svg_filter"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 18 17"
+                  fill="none"
+                >
+                  <path
+                    d="M1 1L7.4 8.38973V13.9375L10.6 15.5V8.38973L17 1H1Z"
+                    stroke="#BBBBBB"
+                    stroke-width="1.2"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                01.10.2024 (пн)
+                <ul class="filter-popup">
+                  <li class="filter-popup__item">Позиция</li>
+                  <li class="filter-popup__item">Спрос</li>
+                  <li class="filter-popup__item">Клики</li>
+                  <li class="filter-popup__item">Показы</li>
+                  <li class="filter-popup__item">CTR</li>
+                </ul>
+                <svg
+                  class="svg svg_arrow"
+                  width="6"
+                  height="4"
+                  viewBox="0 0 6 4"
+                  fill="none"
+                >
+                  <path
+                    d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                    fill="#404040"
+                  />
+                </svg>
+              </th>
+              <th
+                class="table__heading table__heading_data table__heading_has-filter"
+              >
+                <svg
+                  class="svg svg_filter"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 18 17"
+                  fill="none"
+                >
+                  <path
+                    d="M1 1L7.4 8.38973V13.9375L10.6 15.5V8.38973L17 1H1Z"
+                    stroke="#BBBBBB"
+                    stroke-width="1.2"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                02.10.2024 (вт)
+                <ul class="filter-popup">
+                  <li class="filter-popup__item">Позиция</li>
+                  <li class="filter-popup__item">Спрос</li>
+                  <li class="filter-popup__item">Клики</li>
+                  <li class="filter-popup__item">Показы</li>
+                  <li class="filter-popup__item">CTR</li>
+                </ul>
+                <svg
+                  class="svg svg_arrow"
+                  width="6"
+                  height="4"
+                  viewBox="0 0 6 4"
+                  fill="none"
+                >
+                  <path
+                    d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                    fill="#404040"
+                  />
+                </svg>
+              </th>
+              <th
+                class="table__heading table__heading_data table__heading_has-filter"
+              >
+                <svg
+                  class="svg svg_filter"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 18 17"
+                  fill="none"
+                >
+                  <path
+                    d="M1 1L7.4 8.38973V13.9375L10.6 15.5V8.38973L17 1H1Z"
+                    stroke="#BBBBBB"
+                    stroke-width="1.2"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                03.10.2024 (ср)
+                <ul class="filter-popup">
+                  <li class="filter-popup__item">Позиция</li>
+                  <li class="filter-popup__item">Спрос</li>
+                  <li class="filter-popup__item">Клики</li>
+                  <li class="filter-popup__item">Показы</li>
+                  <li class="filter-popup__item">CTR</li>
+                </ul>
+                <svg
+                  class="svg svg_arrow"
+                  width="6"
+                  height="4"
+                  viewBox="0 0 6 4"
+                  fill="none"
+                >
+                  <path
+                    d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                    fill="#404040"
+                  />
+                </svg>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="table__body">
+            <tr class="table__row">
+              <td class="table__cell">
+                <label class="settings-form__label table__label">
+                  <input
+                    class="checkbox settings-form__checkbox visually-hidden"
+                    type="checkbox"
+                    name="table-item"
+                  />
+                  <span class="settings-form__pseudo-checkbox"></span>
+                  <span class="settings-form__label-text">кресло </span>
+                </label>
+              </td>
+              <td class="table__cell">15.5</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell">20.01%</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell aligned-center table__cell_no-data">
+                Нет данных
+              </td>
+              <td
+                class="table__cell table__cell_has-dynamic table__cell_good-dynamic table__cell_good-dynamic-arrow"
+              >
+                <div class="dynamic-container">
+                  <div class="dynamic-indicator">16.3</div>
+                  <div class="dynamic-data">
+                    <div class="dynamic-data__item dynamic-data__clicks">
+                      Клики
+                      <span
+                        class="dynamic-data__value dynamic-data__clicks-value"
+                        >7128</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__ctr">
+                      Ctr
+                      <span class="dynamic-data__value dynamic-data__ctr-value"
+                        >20.01%</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__shows">
+                      Показы
+                      <span
+                        class="dynamic-data__value dynamic-data__shows-value"
+                        >1145</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__demand">
+                      Спрос
+                      <span
+                        class="dynamic-data__value dynamic-data__demand-value"
+                        >8713</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="table__cell table__cell_has-dynamic table__cell_bad-dynamic table__cell_bad-dynamic-arrow"
+              >
+                <div class="dynamic-container">
+                  <div class="dynamic-indicator">46.9</div>
+                  <div class="dynamic-data">
+                    <div class="dynamic-data__item dynamic-data__clicks">
+                      Клики
+                      <span
+                        class="dynamic-data__value dynamic-data__clicks-value"
+                        >7128</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__ctr">
+                      Ctr
+                      <span class="dynamic-data__value dynamic-data__ctr-value"
+                        >20.01%</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__shows">
+                      Показы
+                      <span
+                        class="dynamic-data__value dynamic-data__shows-value"
+                        >1145</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__demand">
+                      Спрос
+                      <span
+                        class="dynamic-data__value dynamic-data__demand-value"
+                        >8713</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr class="table__row">
+              <td class="table__cell">
+                <label class="settings-form__label table__label">
+                  <input
+                    class="checkbox settings-form__checkbox visually-hidden"
+                    type="checkbox"
+                    name="table-item"
+                  />
+                  <span class="settings-form__pseudo-checkbox"></span>
+                  <span class="settings-form__label-text"
+                    >кресло компьютерное
+                  </span>
+                </label>
+              </td>
+              <td class="table__cell">25.5</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell">20.01%</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell aligned-center table__cell_no-data">
+                Нет данных
+              </td>
+              <td
+                class="table__cell table__cell_has-dynamic table__cell_bad-dynamic table__cell_bad-dynamic-arrow"
+              >
+                <div class="dynamic-container">
+                  <div class="dynamic-indicator">46.9</div>
+                  <div class="dynamic-data">
+                    <div class="dynamic-data__item dynamic-data__clicks">
+                      Клики
+                      <span
+                        class="dynamic-data__value dynamic-data__clicks-value"
+                        >7128</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__ctr">
+                      Ctr
+                      <span class="dynamic-data__value dynamic-data__ctr-value"
+                        >20.01%</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__shows">
+                      Показы
+                      <span
+                        class="dynamic-data__value dynamic-data__shows-value"
+                        >1145</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__demand">
+                      Спрос
+                      <span
+                        class="dynamic-data__value dynamic-data__demand-value"
+                        >8713</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="table__cell aligned-center table__cell_no-data">
+                Нет данных
+              </td>
+            </tr>
+            <tr class="table__row">
+              <td class="table__cell">
+                <label class="settings-form__label table__label">
+                  <input
+                    class="checkbox settings-form__checkbox visually-hidden"
+                    type="checkbox"
+                    name="table-item"
+                  />
+                  <span class="settings-form__pseudo-checkbox"></span>
+                  <span class="settings-form__label-text">кресло кожаное </span>
+                </label>
+              </td>
+              <td class="table__cell">35.5</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell">20.01%</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell">14500</td>
+              <td class="table__cell aligned-center table__cell_no-data">
+                Нет данных
+              </td>
+              <td
+                class="table__cell table__cell_has-dynamic table__cell_neutral-dynamic table__cell_good-dynamic-arrow"
+              >
+                <div class="dynamic-container">
+                  <div class="dynamic-indicator">8</div>
+                  <div class="dynamic-data">
+                    <div class="dynamic-data__item dynamic-data__clicks">
+                      Клики
+                      <span
+                        class="dynamic-data__value dynamic-data__clicks-value"
+                        >7128</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__ctr">
+                      Ctr
+                      <span class="dynamic-data__value dynamic-data__ctr-value"
+                        >20.01%</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__shows">
+                      Показы
+                      <span
+                        class="dynamic-data__value dynamic-data__shows-value"
+                        >1145</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__demand">
+                      Спрос
+                      <span
+                        class="dynamic-data__value dynamic-data__demand-value"
+                        >8713</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="table__cell table__cell_has-dynamic table__cell_good-dynamic table__cell_good-dynamic-arrow"
+              >
+                <div class="dynamic-container">
+                  <div class="dynamic-indicator">16.3</div>
+                  <div class="dynamic-data">
+                    <div class="dynamic-data__item dynamic-data__clicks">
+                      Клики
+                      <span
+                        class="dynamic-data__value dynamic-data__clicks-value"
+                        >7128</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__ctr">
+                      Ctr
+                      <span class="dynamic-data__value dynamic-data__ctr-value"
+                        >20.01%</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__shows">
+                      Показы
+                      <span
+                        class="dynamic-data__value dynamic-data__shows-value"
+                        >1145</span
+                      >
+                    </div>
+                    <div class="dynamic-data__item dynamic-data__demand">
+                      Спрос
+                      <span
+                        class="dynamic-data__value dynamic-data__demand-value"
+                        >8713</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="table__footer">
+            <tr class="table__row">
+              <td class="table__cell">
+                Всего слов
+                <span class="table__total-words medium-weight">300</span>
+              </td>
+              <td class="table__cell table__position-total medium-weight">
+                14500
+              </td>
+              <td class="table__cell table__clicks-total medium-weight">
+                14500
+              </td>
+              <td class="table__cell table__ctr-total medium-weight">20.01%</td>
+              <td class="table__cell table__shows-total medium-weight">
+                14500
+              </td>
+              <td class="table__cell table__demand-total medium-weight">
+                14500
+              </td>
+              <td class="table__cell"></td>
+              <td class="table__cell">
+                <div class="footer-data">
+                  <div class="footer-data__clicks">
+                    Клики
+                    <span class="footer-data__value">7128</span>
+                  </div>
+                  <div class="footer-data__shows">
+                    Показы
+                    <span class="footer-data__value">1145</span>
+                  </div>
+                  <div class="footer-data__top">
+                    В топ-50
+                    <span class="footer-data__value">8713</span>
+                  </div>
+                </div>
+              </td>
+              <td class="table__cell">
+                <div class="footer-data">
+                  <div class="footer-data__clicks">
+                    Клики
+                    <span class="footer-data__value">7128</span>
+                  </div>
+                  <div class="footer-data__shows">
+                    Показы
+                    <span class="footer-data__value">1145</span>
+                  </div>
+                  <div class="footer-data__top">
+                    В топ-50
+                    <span class="footer-data__value">8713</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <section class="pagination">
+          <div class="delete-item">
+            <button type="button" class="button button-delete button-delete_pagination">Удалить</button>
+            <p class="delete-item__counter">Выбрано слов <span class="delete-item__counter-value">0</span></p>
+          </div>
+          <div class="pagination__wrapper">
+            <button
+              class="button pagination-button button-previous"
+              type="button"
+            >
+              <img src="./images/previous-page.png" alt="Предыдущая страница" />
+            </button>
+            <p class="pagination__text">
+              Страница
+              <input
+                class="input pagination-input"
+                type="text"
+                name="page"
+                placeholder="1"
+              />
+              из <span class="pagination__total">5</span>
+            </p>
+            <button class="button pagination-button button-next" type="button">
+              <img src="./images/next-page.png" alt="Следующая страница" />
+            </button>
+          </div>
+          <div class="select-wrapper">
+            <button class="button select-button" type="button">50</button>
+            <ul class="custom-select">
+              <li class="custom-select__item">50</li>
+              <li class="custom-select__item">100</li>
+              <li class="custom-select__item">500</li>
+              <li class="custom-select__item">1000</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
+    <script src="./scripts/litepicker.js"></script>
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>

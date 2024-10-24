@@ -1,0 +1,21 @@
+:root {
+  --main-font: "PTRootUI";
+  --main-text-size: 14px;
+  --secondary-text-size: 12px;
+  --main-text-color: #404040; 
+  --good-dynamic-color: #daf0db; 
+  --bad-dynamic-color: #ffe7e6; 
+  --neutral-dynamic-color: #dfefff;
+  --no-data-color: #f7f7f7;
+  --accent-color: #0076f5;
+  --bg-color: #ffffff;
+  --border-color: #e5e5ea;
+  --placeholder-color: #bbbbbb;
+  --month-arrow-color: #747474;
+  --month-bg-color: #f2f8fe;
+  --delete-button-bg-color: #fdf4f4;
+  --delete-button-color: #e50c00;
+  --delete-button-hover: #ffe7e6;
+  --table-head-color: #fbfbfc;
+  --good-dynamic-indicator-color: #009906;
+}
